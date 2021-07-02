@@ -1,0 +1,169 @@
+{% extends 'blog/base.html' %}
+{% load static  %}
+{% load custom_filters %}
+
+{% block title %} {{ post.title }} {% endblock title %}
+{% block container %}
+<div class="container py-md-3">
+    {% endblock container %} {% block sidebar %}
+    <div class="side-bar col-lg-4"></div>
+    {% endblock sidebar %} {% block content %} {% if category %} {% load account %}
+
+    <h5>
+        {% for cat in category %}
+        <div>
+            {{ cat.category__category }} {% if user.is_authenticated %} {% if cat.category not in subscribed %} | <button><a href="{% url 'subscribe_category' cat.category %}">Подписаться</a></button>
+            {% endif %} {% endif %}
+        </div>
+        {% endfor %}
+    </h5>
+    {% endif %}
+    <table>
+        <thead>
+            <table>
+                <thead>
+                    <th>
+                        Пост
+                    </th>
+                    <th>
+                        Дата публикации
+                    </th>
+                    <th>
+                        Текст статьи
+                    </th>
+                    <th>
+                        Постер
+                    </th>
+                    <th>
+                        Автор статьи
+                    </th>
+                </thead>
+                {% for post in blog_list %}
+                <tr>
+                    <td>
+                        <a href="{% url 'blog' post.id %}">{{ post.title }}</a>
+
+                        <a href="{% url 'edit' post.id %}"><u>Редактировать</u></a>
+                        <a href="{% url 'delete' post.id %}"><u> Удалить </u></a>
+                    </td>
+                    <td>
+                        {{ post.pub_date }}
+                    </td>
+                    <td>
+                        {{ post.preview|censor }}
+                    </td>
+                    <td>
+                        <img src="{{post.image_url}}" style="width: 100px; height: 80px;" />
+                    </td>
+
+                    <td>
+                        {{ post.content|truncatechars:50|censor }}
+                    </td>
+                    <td>
+                        {{ post.author }}
+                    </td>
+                </tr>
+            </table>
+            <div class="left-ads-display col-lg-8">
+                <div class="row">
+                    <div class="desc1-left col-md-6">
+                        <img src="{{ post.image.url }}" class="img-fluid" alt="" />
+                    </div>
+                    <div class="desc1-right col-md-6 pl-lg-4">
+                        <h3 class="editContent">
+                            {{ post.title }}
+                        </h3>
+                        <h5 class="editContent"></h5>
+                        <ul>
+                            <li>
+                                <span><b>Автор:</b> {{ post.author }}</span>
+                            </li>
+                            <li>
+                                <span><b>Дата публикации:</b> {{ post.pub_date }}</span>
+                            </li>
+                            <li>
+                                <span><b>Текст:</b> {{ post.text }}</span>
+                            </li>
+                            <li>
+                                <span><b>Изображение:</b> {{ post.image }}</span>
+                            </li>
+                            <li>
+                                <span><b>Прикрепленный файл:</b> {{ post.file }}</span>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="single-form-left">
+                        <!-- contact form grid -->
+                        <div class="contact-single">
+                            <h3 class="editContent"><span class="sub-tittle editContent">{{ post.comments_set.count }}</span> Оставить комментарий</h3>
+                            <form action="{% url 'add_comment' post.id %}" method="post" class="mt-4" id="formComment">
+                                {% csrf_token %}
+                                <input type="hidden" name="parent" id="contactparent" value="" />
+                                <div class="form-group editContent">
+                                    <label for="contactcomment" class="editContent">
+                                        Ваш комментарий *
+                                    </label>
+                                    {{ form.text }}
+                                </div>
+                                <div class="d-sm-flex">
+                                    <div class="col-sm-6 form-group p-0 editContent">
+                                        <label for="contactusername" class="editContent">
+                                            Имя *
+                                        </label>
+                                        {{ form.name }}
+                                    </div>
+                                    <div class="col-sm-6 form-group ml-sm-3 editContent">
+                                        <label for="contactemail" class="editContent">
+                                            Email *
+                                        </label>
+                                        {{ form.email }}
+                                    </div>
+                                    {{ form.captcha }}
+                                </div>
+                                <button type="submit" class="mt-3 btn btn-success btn-block py-3">
+                                    Отправить
+                                </button>
+                            </form>
+                        </div>
+                        <!--  //contact form grid ends here -->
+                    </div>
+                </div>
+                {% for comment in post.get_comment %}
+                <div class="media py-5">
+                    <img src="{% static 'images/te2.jpg' %}" class="mr-3 img-fluid" alt="image" />
+                    <div class="media-body mt-4">
+                        <h5 class="mt-0 editContent">
+                            {{ comment.name }}
+                        </h5>
+                        <p class="mt-2 editContent">
+                            {{ comment.text }}
+                        </p>
+                        <a href="#formComment" onclick="addComment('{{ comment.name }}', '{{ comment.id }}')">Ответить</a>
+                        {% for c in comment.comments_set.all %}
+                        <div class="media mt-5 editContent">
+                            <a class="pr-3" href="#">
+                                <img src="{% static 'images/te2.jpg' %}" class="img-fluid" alt="image" />
+                            </a>
+                            <div class="media-body">
+                                <h5 class="mt-0 editContent">{{ c.name }}</h5>
+                                <p class="mt-2 editContent">{{ c.text }}</p>
+                            </div>
+                        </div>
+                        {% endfor %}
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+            <script>
+                function addReview(name, id) {
+                    document.getElementById("contactparent").value = id;
+                    document.getElementById("contactcomment").innerText = `${name}, `;
+                }
+            </script>
+        </thead>
+    </table>
+</div>
+
+{% endblock content %}

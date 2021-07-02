@@ -1,0 +1,54 @@
+{% load post_tag %}
+<header class="header">
+    <div class="container-fluid px-lg-5">
+        <!-- nav -->
+        <nav class="py-4">
+            <div id="logo">
+                <h1><a href="/about/" class="editContent"
+                       style="outline: none; outline-offset: -2px; cursor: inherit; color: rgb(255, 255, 255); font-size: 40px; background-color: rgba(0, 0, 0, 0); font-family: Source Sans Pro">World of WarCraft</a>
+                </h1>
+            </div>
+
+            <label for="drop" class="toggle">Menu</label>
+            <input type="checkbox" id="drop">
+            <ul class="menu mt-2">
+                <li class="active"><a href="/about/">Главная</a></li>
+                <li>
+                <li ><a href="/requirements/">Требования</a></li>
+                <li>
+                    <label for="drop-2" class="toggle">Категории <span
+                            class="fa fa-angle-down" aria-hidden="true"></span> </label>
+                    <a href="#">Категории <span class="fa fa-angle-down"
+                                                aria-hidden="true"></span></a>
+                    <input type="checkbox" id="drop-2">
+                    <ul>
+                        {% get_categories as categories %}
+                        {% for category in categories %}
+                            <li><a href= "{{category.url }}"  >{{ category.name }}</a></li>
+                        {% endfor %}
+                    </ul>
+                </li>
+
+                {% load account %}
+                {% if user.is_authenticated %}
+                <li><div class="nav-link py-3 px-0 px-lg-3 rounded">{% user_display user %}</div></li>
+                <li><a class="nav-link py-3 px-0 px-lg-3 rounded" href="{% url 'account_logout' %}">Выход</a></li>
+                {% comment %} {% if is_not_authors %}<li>
+                 <a class="btn btn-success" href="sign/upgrade/"> Стать автором!</a>
+                 </li>  {% endif %}{% endcomment %}
+                {% else %}
+                <li><a class="btn btn-outline-primary btn-sm nav-link py-3 px-0 px-lg-3 rounded" href="{% url 'account_login' %}"> Вход</a></li>
+                <li><a class="btn btn-primary btn-sm nav-link py-3 px-0 px-lg-3 rounded" href="{% url 'account_signup' %}">Регистрация</a></li>
+
+                {% endif %}
+            </ul>
+        </nav>
+    </div>
+</header>
+
+<div class="banner-info">
+    <p class="editContent">World of WarCraft</p>
+    <h3 class="mb-4 editContent" style="outline: none; outline-offset: -2px; cursor: inherit; color: rgb(252, 249, 249); font-size: 30px; font-weight:700;  font-family: Source Sans Pro">Два мира - одна судьба</h3>
+</div>
+
+

@@ -1,0 +1,16 @@
+{% extends 'base.html' %}
+
+{% load custom_filters %}
+
+{% block title %}
+Добавление объявления
+{% endblock title %}
+
+{% block content %}
+<h3>Текст объявления</h3>
+<form method="POST">
+    {% csrf_token %}
+    {{ form }}
+    <input type="submit" value="Добавить объявление">
+</form>
+{% endblock content %}

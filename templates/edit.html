@@ -1,0 +1,43 @@
+{% extends 'base.html' %}
+{% load custom_filters %}
+{% block title %} Объявления  {% endblock title %}
+
+{% block content %}
+<h2>Вы действительно хотите удалить данное объявление?</h2>
+<table>
+    <thead>
+        <th>
+           Тема
+        </th>
+        <th>
+            Дата публикации
+        </th>
+        <th>
+            Текст объявления
+        </th>
+        <th>
+            Автор объявления
+        </th>
+    </thead>
+    <tr>
+        <td>
+<h1>{{ post.title|censor }}</h1>
+</td>
+<td>
+<h6>{{ post.pub_date}}</h6>
+</td>
+<td>
+<p>{{ post.text|truncatechars:50|censor }}</p>
+<hr>
+</td>
+<td>
+<p>{{ post.author }}</p>
+<hr>
+</td>
+</tr>
+</table>
+
+<form method="POST">
+    {% csrf_token %}
+    <input type="submit" value="подтвердить"></form>
+{% endblock content %}

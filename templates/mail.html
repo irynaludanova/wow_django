@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ post.header }}</title>
+</head>
+<body>
+    <p>Здравствуйте, {{ user.username }}. Свежие новости за эту неделю:</p>
+    <ul>
+    {% for p in post %}
+        <li><a href="http://127.0.0.1:8000{% url 'blog' p.id %}">{{ p.header }}</a></li>
+    {% endfor %}
+    </ul>
+    <hr>
+</body>
+</html>

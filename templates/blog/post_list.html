@@ -1,0 +1,88 @@
+{% extends 'blog/base.html' %}
+{% load custom_filters %}
+{% block title %} {% endblock title %}
+{% block header %} bg1 {% endblock header %}
+{% block post %}
+<div class="left-ads-display col-lg-9">
+    <div class="row">
+        <h1>Все новости</h1>
+        <hr />
+        {% if blog_list %}
+        <table>
+            <thead>
+                <th>
+                    Пост
+                </th>
+                <th>
+                    Дата публикации
+                </th>
+                <th>
+                    Текст статьи
+                </th>
+                <th>
+                    Постер
+                </th>
+                <th>
+                    Автор статьи
+                </th>
+            </thead>
+            {% for post in blog_list %}
+            <tr>
+                <td>
+                    <a href="{% url 'blog' post.id %}">{{ post.title }}</a>
+
+                    <a href="{% url 'edit' post.id %}"><u>Редактировать</u></a>
+                    <a href="{% url 'delete' post.id %}"><u> Удалить </u></a>
+                </td>
+                <td>
+                    {{ post.pub_date|date:'d.m.Y' }}
+                </td>
+                <td>
+                    {{ post.preview|censor }}
+                </td>
+                <td>
+                    <img src="{{post.image_url}}" style="width: 100px; height: 80px;" />
+                </td>
+
+                <td>
+                    {{ post.content|truncatechars:50|censor }}
+                </td>
+                <td>
+                    {{ post.author }}
+                </td>
+            </tr>
+            {% endfor %}
+        </table>
+        <div>
+            <a href="{% url 'add' %}" class="btn btn-info"><u>Добавить пост</u></a>
+
+            <hr />
+
+            {% if is_paginated %} {% if page_obj.has_previous %}
+            <a href="?page=1">First</a>
+            <a href="?page={{ page_obj.previous_page_number }}"><<<</a>
+            {% endif %} {% for num in page_obj.paginator.page_range %} {% if page_obj.number == num %}
+            <a>{{ num }}</a>
+            {% elif num > page_obj.number|add:'-3' and num < page_obj.number|add:'3' %}
+            <a href="?page={{ num }}">{{ num }}</a>
+            {% endif %} {% endfor %} {% if page_obj.has_next %}
+            <a href="?page={{ page_obj.next_page_number }}">>>></a>
+            <a href="?page={{ page_obj.paginator.num_pages }}">Last</a>
+            {% endif %} {% endif %} {% else %}
+            <h2>Новостей нет...</h2>
+            {% endif %}
+
+            <br />
+            <div>
+                {% if is_not_authors %}
+                <button><a class="btn btn-outline-success" href="sign/upgrade/"> Стать автором!</a></button>
+                {% endif %} {% endblock post %}
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+
