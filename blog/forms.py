@@ -6,7 +6,7 @@ from snowpenguin.django.recaptcha3.fields import ReCaptchaField
 class PostForm(ModelForm):
     class Meta:
         model = Post
-        fields = ['author', 'image', 'category', 'title', 'text']
+        fields = ['author', 'image', 'category', 'title', 'text', 'url']
 
 
 class CommentForm(forms.ModelForm):

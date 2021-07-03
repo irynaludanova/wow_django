@@ -33,11 +33,7 @@
                <div class="nav-link py-3 px-0 px-lg-3 rounded">{% user_display user %}</div>
             </li>
             <li><a class="nav-link py-3 px-0 px-lg-3 rounded" href="{% url 'account_logout' %}">Выход</a></li>
-            {% comment %} {% if is_not_authors %}
-            <li>
-               <a class="btn btn-success" href="sign/upgrade/"> Стать автором!</a>
-            </li>
-            {% endif %}{% endcomment %}
+
             {% else %}
             <li><a class="btn btn-outline-primary btn-sm nav-link py-3 px-0 px-lg-3 rounded" href="{% url 'account_login' %}"> Вход</a></li>
             <li><a class="btn btn-primary btn-sm nav-link py-3 px-0 px-lg-3 rounded" href="{% url 'account_signup' %}">Регистрация</a></li>

@@ -10,5 +10,5 @@ def get_categories():
 
 @register.inclusion_tag('blog/tags/last_posts.html')
 def get_last_posts(count=5):
-    posts = Post.objects.order_by('id')[:count]
+    posts = Post.objects.order_by('-pub_date')[:count]
     return{'last_posts': posts }

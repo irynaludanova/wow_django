@@ -8,7 +8,7 @@ urlpatterns = [
     path("<slug:slug>/", PostDetail.as_view(), name="post_detail"),
     path("comment/<int:pk>/", AddComment.as_view(), name="add_comment"),
     path('<int:pk>/subscribe/', subscribe, name='subscribe_category'),
-    path('add/', PostAdd.as_view(), name='add'),
+    path('add', PostAdd.as_view(), name='add'),
     path('<int:pk>/edit/', PostEdit.as_view(), name='edit'),
     path('<int:pk>/delete/', PostDelete.as_view(), name='delete'),
 

@@ -12,8 +12,6 @@ class PostList(ListView):
     model = Post
     queryset = Post.objects.filter(draft=False)
     ordering = '-pub_date'
-    paginate_by = 1
-
 
 
 class PostDetail(DetailView):
@@ -31,7 +29,7 @@ class PostAdd(CreateView):
     model = Post
     template_name = 'add.html'
     form_class = PostForm
-    success_url = '/blog/'
+    success_url = '/'
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
@@ -54,14 +52,14 @@ class PostEdit(UpdateView):
     model = Post
     template_name = 'edit.html'
     form_class = PostForm
-    success_url = '/blog/'
+    success_url = '/'
 
 
 class PostDelete(DeleteView):
     model = Post
     template_name = 'delete.html'
     queryset = Post.objects.all()
-    success_url = '/blog/'
+    success_url = '/'
 
 
 @login_required
@@ -72,7 +70,7 @@ def subscribe(request, pk):
         Mail.objects.create(subscribers=get_user_model().
                             objects.get(id=request.user.id),
                             category=Category.objects.get(id=pk))
-    return redirect('/blog')
+    return redirect('/')
 
 
 class AddComment(View):

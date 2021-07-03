@@ -1,36 +1,49 @@
 {% extends 'blog/base.html' %}
 {% load custom_filters %}
-{% block title %} {% endblock title %}
+{% block title %} Объявления{% endblock title %}
 {% block header %} bg1 {% endblock header %}
+
 {% block post %}
     <div class="left-ads-display col-lg-9">
-        <div class="row">
-            {% for post in post_list %}
-                <div class="col-md-4 product-men">
-                    <div class="product-shoe-info editContent text-center mt-lg-4">
-                        <div class="men-thumb-item">
-                            <img src="{{ post.image.url }}" class="img-fluid" alt="">
-                        </div>
-                        <div class="item-info-product">
-                            <h4 class="">
-                                <a href="{{ post.get_absolute_url }}"
-                                   class="editContent">
-                                    {{ post.title }}
-                                </a>
-                            </h4>
-                            <div class="product_price">
-                                <div class="grid-price">
-                                    <span >{{ post.preview|safe }}</span>
+        <h2 style="text-transform: uppercase; text-align: center;">Все посты</h2>
+        <div class="container" style="flex-wrap: wrap;">
+            <div class="d-sm-flex " style="flex-wrap: wrap;" >
+                {% if post_list %}
+                {% for post in post_list %}
+                    <div class="col-md-4 product-men">
+
+                            <div class="men-thumb-item">
+                                <img src="{{ post.image.url }}" class="img-fluid" alt="">
+                            </div>
+                            <div class="item-info-product">
+                                <h4 class="">
+                                    <a href="{{ post.get_absolute_url }}"
+                                       class="editContent">
+                                        {{ post.title |censor }}
+                                    </a>
+                                </h4>
+                                <div class="product_price">
+                                    <div class="grid-price">
+                                        <span >{{ post.preview|safe }}</span>
+                                    </div>
                                 </div>
                             </div>
-                        </div>
+
                     </div>
-                </div>
-            {% endfor %}
+                {% endfor %}
+            </div>
         </div>
-        <div class="grid-img-right mt-4 text-right" >
+
+        {% if is_paginated %}
             {% include 'include/pagination.html' %}
-        </div>
-    </div>
+        {% endif %}
+
+        {% else %}
+    <h2>Новостей нет...</h2>
+{% endif %}
+<br>
+<div>
+<a href="{% url 'add' %}" class="btn btn-outline-info" ><u>Добавить пост</u></a>
+</div>
 {% endblock post %}
 
