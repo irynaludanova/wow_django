@@ -40,12 +40,16 @@ class Post(models.Model):
     image= models.ImageField(upload_to='images/', blank=True, verbose_name='Постер', null=True, default='static/images/top-tanks.jpg')
     file= models.FileField(upload_to='files/', max_length=100, blank=True, verbose_name='Файл')
     draft = models.BooleanField("Черновик", default=False)
+    url = models.SlugField(max_length=130, unique=True)
 
     def __str__(self):
         return self.title
 
     def preview(self):
         return self.text[:125] + ('...' if len(self.text) > 124 else '')
+
+    def get_absolute_url(self):
+        return reverse("post_detail", kwargs={"slug": self.url})
 
     @property
     def image_url(self):
@@ -59,7 +63,7 @@ class Post(models.Model):
 
 
     def get_comment(self):
-        return self.comments_set.filter(parent__isnull=True)
+        return self.comment_set.filter(parent__isnull=True)
 
 
 class Comment(models.Model):
@@ -79,6 +83,7 @@ class Comment(models.Model):
     class Meta:
         verbose_name='Комментарий'
         verbose_name_plural='Комментарии'
+
 
 class Mail(models.Model):
     """Почта"""

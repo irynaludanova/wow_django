@@ -5,7 +5,7 @@ from .views import PostFilter, PostList, PostDetail,  PostAdd, PostEdit, PostDel
 urlpatterns = [
     path("", PostList.as_view()),
     path("search/", PostFilter.as_view(), name='search'),
-    path("<int:pk>/", PostDetail.as_view(), name="blog"),
+    path("<slug:slug>/", PostDetail.as_view(), name="post_detail"),
     path("comment/<int:pk>/", AddComment.as_view(), name="add_comment"),
     path('<int:pk>/subscribe/', subscribe, name='subscribe_category'),
     path('add/', PostAdd.as_view(), name='add'),

@@ -10,29 +10,20 @@ from django.contrib.auth import get_user_model
 
 class PostList(ListView):
     model = Post
-    template_name = 'blog_list.html'
-    context_object_name = 'blog_list'
+    queryset = Post.objects.filter(draft=False)
     ordering = '-pub_date'
     paginate_by = 1
+    template_name = 'blog/post_list.html'
 
 
 class PostDetail(DetailView):
     model = Post
-    template_name = 'blog_detail.html'
-    context_object_name = 'blog'
+    slug_field="url"
 
-    def index(request):
-        return render(request, 'blog/blog_detail.html')
-    # def get_context_data(self, **kwargs):
-    #     context = super().get_context_data(**kwargs)
-    #     context['category'] = list(Category.objects.filter(
-    #         post=self.kwargs['pk']).values('category', 'category__name'))
-    #     sub = list(Mail.objects.filter(subscribers=self.request.user.id).
-    #                values('category'))
-    #     context['subscribed'] = [s['category'] for s in sub]
-    #     context['author_name'] = Post.objects.filter(id=self.kwargs['pk']).\
-    #         values('author__author_id__author_nick')[0]['author__author_id__author_nick']
-    #     return context
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context["form"] = CommentForm()
+        return context
 
 
 class PostAdd(CreateView):
