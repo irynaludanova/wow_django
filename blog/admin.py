@@ -2,13 +2,15 @@ from django import forms
 from django.contrib import admin
 from django.utils.safestring import mark_safe
 from .models import Category, Mail, Post,  Comment, Author
+from ckeditor_uploader.widgets import CKEditorUploadingWidget
 
 
 class PostAdminForm(forms.ModelForm):
-
+    text = forms.CharField(widget=CKEditorUploadingWidget())
     class Meta:
         model = Post
         fields = '__all__'
+
 
 @admin.register(Category)
 class CategoryAdmin(admin.ModelAdmin):

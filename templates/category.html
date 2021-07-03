@@ -1,0 +1,59 @@
+{% extends 'flatpages/default.html' %}
+
+{% load custom_filters %}
+
+{% block title %}
+Объявления
+{{ category|length }}
+{% endblock title %}
+
+{% block content %}
+    <h1>{{ category_name.category }}
+        {% load account %}
+            {% if user.is_authenticated %}
+                {% if category_name.id not in subscribed %}
+                    | <button><a href="{% url 'subscribe_category' category_name.id %}">Подписаться</a></button>
+                {% endif %}
+            {% endif %}
+    </h1>
+    <hr>
+    {% if category %}
+        <table>
+            <thead>
+                <tr>
+                    <td>
+                        Заголовок
+                    </td>
+                    <td>
+                        Дата публикации
+                    </td>
+                    <td>
+                        Объявление
+                    </td>
+                </tr>
+            </thead>
+        {% for c in category %}
+            <tr>
+                <td>
+                    <a href="{% url 'detail_blog' blog.id %}">{{ news.header|censor }}</a>
+                    <a href="{% url 'blog_edit' blog.id %}"><u>Редактировать</u></a>
+                    <a href="{% url 'blog_delete' blog.id %}"><u>Удалить</u></a>
+                </td>
+                <td>
+                    {{ blog.pub_date|date:'d.m.Y' }}
+                </td>
+                <td>
+                    {{ blog.content|truncatechars:50|censor }}
+                </td>
+            </tr>
+        {% endfor %}
+        </table>
+        {% include 'include/pagination.html' %}
+    {% else %}
+        <h2>Объявлений нет!</h2>
+    {% endif %}
+
+    <div>
+        {% if is_not_premium %}<button> <a href="/blog/upgrade/">ПРЕМИУМ</a></button>{% endif %}
+    </div>
+{% endblock content %}

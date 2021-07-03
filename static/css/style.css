@@ -873,7 +873,7 @@ ul.w3layouts-box-list li {
 }
 
 .grid-img-right {
-    background: url(../images/single.jpg)no-repeat center;
+
     -webkit-background-size: cover;
     -moz-background-size: cover;
     -o-background-size: cover;
@@ -894,7 +894,7 @@ ul.w3layouts-box-list li {
     text-transform: uppercase;
     font-weight: 600;
     text-decoration: none;
-    color: #fff;
+    color: rgb(31, 1, 87);
     padding: 0;
 
 }

@@ -19,10 +19,10 @@ from django.contrib import admin
 from django.urls import path, include
 
 urlpatterns = [
-    path('grappelli/', include('grappelli.urls')),
+    path('ckeditor/', include('ckeditor_uploader.urls')),
     path('admin/', admin.site.urls),
     path('pages/', include('django.contrib.flatpages.urls')),
-    path('blog/', include('blog.urls')),
+    path('', include('blog.urls')),
     path('accounts/', include('allauth.urls')),
     path('contact/', include('contact.urls')),
 ]

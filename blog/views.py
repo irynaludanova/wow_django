@@ -13,11 +13,12 @@ class PostList(ListView):
     queryset = Post.objects.filter(draft=False)
     ordering = '-pub_date'
     paginate_by = 1
-    template_name = 'blog/post_list.html'
+
 
 
 class PostDetail(DetailView):
     model = Post
+    queryset = Post.objects.filter(draft=False)
     slug_field="url"
 
     def get_context_data(self, **kwargs):

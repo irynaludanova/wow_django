@@ -2,14 +2,14 @@
     <h3 class="sear-head editContent">Последние добавленные</h3>
     {% for post in last_posts %}
         <div class="special-sec1 row mt-3 editContent">
-
-            <div class="img-deals col-md-4">
-                <img src="{{ post.image.url }}" class="img-fluid" alt="">
-            </div>
-
-            <div class="img-deal1 col-md-4">
-                <h3 class="editContent">{{ post.title }}</h3>
-                <a href="{{ post.id }}" class="editContent"></a>
+            <h4 class="">
+                <a href="{{ post.get_absolute_url }}"
+                   class="editContent">
+                    {{ post.title }}
+                </a>
+            </h4>
+            <div >
+                <img src="{{ post.image.url }}" class="img-fluid" style="width: 200px; height:200px;" alt="">
             </div>
         </div>
     {% endfor %}
