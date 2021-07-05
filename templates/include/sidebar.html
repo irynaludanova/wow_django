@@ -1,3 +1,18 @@
 {% load post_tag %}
-
+<div class="search-bar w3layouts-newsletter">
+<form action="{% url 'filter' %}" method="get" name="filter"></form>
+<div class="left-side my-4">
+    <h3 class="sear-head editContent">Категории</h3>
+    <ul class="w3layouts-box-list">
+        {% for  category in view.get_categories %}
+            <li class="editContent">
+                <input type="checkbox" class="checked" name="category" value="{{ category.name }}">
+                <span class="span editContent">{{ category.name }}</span>
+            </li>
+        {% endfor %}
+    </ul>
+</div>
+<button type="submit">Найти</button>
+</form>
+</div>
 {% get_last_posts count=5 %}

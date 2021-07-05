@@ -7,14 +7,19 @@ from .forms import CommentForm,  PostForm
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth import get_user_model
 
+class  PostCategory:
+    def get_categories(self):
+        return Category.objects.all()
 
-class PostList(ListView):
+
+class PostList(PostCategory, ListView):
     model = Post
     queryset = Post.objects.filter(draft=False)
     ordering = '-pub_date'
+    paginate_by=3
 
 
-class PostDetail(DetailView):
+class PostDetail(PostCategory, DetailView):
     model = Post
     queryset = Post.objects.filter(draft=False)
     slug_field="url"
@@ -36,16 +41,15 @@ class PostAdd(CreateView):
         return context
 
 
-class PostFilter(ListView):
-    model = Post
-    template_name = 'search.html'
-    context_object_name = 'search'
-    ordering = ['-pub_date']
+class PostsFilter(PostCategory, ListView):
+    def get_queryset(self):
+        queryset = Post.objects.filter(category__in=self.request.GET.getlist('category'))
+        return queryset
 
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
-        context['filter'] = PostFilter(self.request.GET, queryset=self.get_queryset())
-        return context
+    def get_context_data(self, *args, **kwargs):
+         context = super().get_context_data(*args, **kwargs)
+         context["category"] = ''.join([f"category={x}&" for x in self.request.GET.getlist("category")])
+         return context
 
 
 class PostEdit(UpdateView):

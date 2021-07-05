@@ -3857,6 +3857,7 @@ tbody.collapse.show {
 .nav-link {
   display: block;
   padding: 0.5rem 1rem;
+  color:rgba(0, 123, 255, 0.25) !important;
 }
 
 .nav-link:hover, .nav-link:focus {
@@ -6245,6 +6246,7 @@ button.bg-dark:focus {
 
 .rounded {
   border-radius: 0.25rem !important;
+  color:rgba(0, 123, 255, 0.25) !important;
 }
 
 .rounded-top {

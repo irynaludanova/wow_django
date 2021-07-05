@@ -1,0 +1,99 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2020-07-05 15:10+0300\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+
+#: templates/blog/post_detail.html:21
+msgid "Автор"
+msgstr "Author"
+
+#: templates/blog/post_detail.html:24
+msgid "Дата публикации"
+msgstr "Publish date"
+
+#: templates/blog/post_detail.html:27
+msgid "Прикрепленные файлы"
+msgstr "Attached files"
+
+#: templates/blog/post_detail.html:33
+msgid "Текст объявления"
+msgstr "Announcement text"
+
+#: templates/blog/post_detail.html:43
+msgid "Оставить комментарий"
+msgstr "Leave a comment"
+
+#: templates/blog/post_detail.html:50
+msgid "Ваш комментарий"
+msgstr "Your comment"
+
+#: templates/blog/post_detail.html:57
+msgid "Имя"
+msgstr "Name"
+
+#: templates/blog/post_detail.html:71
+msgid "Отправить"
+msgstr "Send"
+
+#: templates/blog/post_detail.html:90
+msgid "Ответить"
+msgstr "Reply"
+
+#: templates/blog/post_list.html:9
+msgid "Все посты"
+msgstr "All posts"
+
+#: templates/blog/post_list.html:43
+msgid "Новостей нет..."
+msgstr "No news..."
+
+#: templates/blog/post_list.html:47
+msgid "Добавить пост"
+msgstr "Add post"
+
+#: templates/include/header.html:14
+msgid "Главная"
+msgstr "Home"
+
+#: templates/include/header.html:16
+msgid "Требования"
+msgstr "Requirements"
+
+#: templates/include/header.html:18
+msgid "Категории"
+msgstr "Categories"
+
+#: templates/include/header.html:35
+msgid "Выход"
+msgstr "Sign Out"
+
+#: templates/include/header.html:38
+msgid "Вход"
+msgstr "Sign In"
+
+#: templates/include/header.html:39
+msgid "Регистрация"
+msgstr "Check in"
+
+#: templates/include/header.html:65
+msgid "Два мира - одна судьба"
+msgstr "Two worlds - one destiny"
+
+
+

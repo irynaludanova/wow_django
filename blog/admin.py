@@ -3,17 +3,20 @@ from django.contrib import admin
 from django.utils.safestring import mark_safe
 from .models import Category, Mail, Post,  Comment, Author
 from ckeditor_uploader.widgets import CKEditorUploadingWidget
+from modeltranslation.admin import TranslationAdmin
 
 
 class PostAdminForm(forms.ModelForm):
-    text = forms.CharField(widget=CKEditorUploadingWidget())
+    text_ru = forms.CharField(label="Описание", widget=CKEditorUploadingWidget())
+    text_en = forms.CharField(label="Описание", widget=CKEditorUploadingWidget())
+
     class Meta:
         model = Post
         fields = '__all__'
 
 
 @admin.register(Category)
-class CategoryAdmin(admin.ModelAdmin):
+class CategoryAdmin(TranslationAdmin):
     list_display = ("name", "url", "get_image")
     list_display_links = ("name",)
     readonly_fields = ("get_image",)
@@ -29,7 +32,7 @@ class CommentInline(admin.TabularInline):
 
 
 @admin.register(Post)
-class PostAdmin(admin.ModelAdmin):
+class PostAdmin(TranslationAdmin):
     list_display = ("title", "category",   "draft")
     list_editable =("title", "category",  "draft")
     list_filter = ("category", )

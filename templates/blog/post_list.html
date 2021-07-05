@@ -1,11 +1,12 @@
 {% extends 'blog/base.html' %}
+{% load i18n static  %}
 {% load custom_filters %}
 {% block title %} Объявления{% endblock title %}
 {% block header %} bg1 {% endblock header %}
 
 {% block post %}
     <div class="left-ads-display col-lg-9">
-        <h2 style="text-transform: uppercase; text-align: center;">Все посты</h2>
+        <h2 style="text-transform: uppercase; text-align: center;">{% trans 'Все посты' %}</h2>
         <div class="container" style="flex-wrap: wrap;">
             <div class="d-sm-flex " style="flex-wrap: wrap;" >
                 {% if post_list %}
@@ -39,11 +40,11 @@
         {% endif %}
 
         {% else %}
-    <h2>Новостей нет...</h2>
+    <h2>{% trans ' Новостей нет...' %}</h2>
 {% endif %}
 <br>
 <div>
-<a href="{% url 'add' %}" class="btn btn-outline-info" ><u>Добавить пост</u></a>
+<a href="{% url 'add' %}" class="btn btn-outline-info" ><u>{% trans 'Добавить пост' %}</u></a>
 </div>
 {% endblock post %}
 

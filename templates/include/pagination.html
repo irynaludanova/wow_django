@@ -1,19 +1,45 @@
 <ul class="pagination">
-    {% if is_paginated %}
-            {% if page_obj.has_previous %}
-                <a href="?page=1">Первая </a>
-                <a href="?page={{ page_obj.previous_page_number }}"> &laquo;&laquo;&laquo; </a>
-            {% endif %}
-            {% for num in page_obj.paginator.page_range %}
-                {% if page_obj.number == num %}
-                    <a>{{ num }}</a>
-                {% elif num > page_obj.number|add:'-2' and num < page_obj.number|add:'2' %}
-                    <a href="?page={{ num }}"> {{ num }} </a>
-                {% endif %}
-            {% endfor %}
-            {% if page_obj.has_next %}
-                <a href="?page={{ page_obj.next_page_number }}"> &raquo;&raquo;&raquo;  </a>
-                <a href="?page={{ page_obj.paginator.num_pages }}"> Последняя</a>
-            {% endif %}
+    {% if page_obj.has_previous %}
+        {% if page_obj.number|add:'-3' > 1 %}
+            <li class="pagination__item">
+                <a href="?{{ category }}page=1">1</a>
+            </li>
         {% endif %}
- </ul>
+        {% if page_obj.number|add:'-3' >= 3 %}
+            <li class="pagination__item pagination__item--dots">
+                    <a href="?{{ category }}page={{ page_obj.previous_page_number|add:'-3' }}">
+                <span class="pagination__link">• • •</span>
+                </a>
+            </li>
+        {% endif %}
+    {% endif %}
+    {% if paginator.page_range|length > 1 %}
+        {% for i in paginator.page_range %}
+            {% if page_obj.number == i %}
+                <li class="pagination__item active">
+                    <a class="pagination__link" href="#">{{ i }}</a>
+                </li>
+            {% elif i > page_obj.number|add:'-4' and i < page_obj.number|add:'4' %}
+                <li class="pagination__item">
+                        <a class="pagination__link" href="?{{ category }}page={{ i }}">{{ i }}</a>
+                </li>
+            {% endif %}
+        {% endfor %}
+    {% endif %}
+    {% if page_obj.has_next %}
+        {% if page_obj.number|add:'4' < page_obj.paginator.num_pages %}
+            <li class="pagination__item pagination__item--dots">
+                    <a href="?{{ category }}page={{ page_obj.next_page_number|add:'3' }}">
+                <span class="pagination__link">• • •</span>
+                </a>
+            </li>
+        {% endif %}
+        {% if page_obj.number|add:'3' < page_obj.paginator.num_pages %}
+            <li class="pagination__item">
+                    <a class="pagination__link" href="?{{ category }}page={{ page_obj.paginator.num_pages }}">
+                        {{ page_obj.paginator.num_pages }}
+                    </a>
+            </li>
+        {% endif %}
+    {% endif %}
+</ul>
